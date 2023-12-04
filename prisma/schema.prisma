@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+// Criar migration: npm prisma migrate dev
+model Pesquisador{
+  id String @id @default(uuid())
+  cpf String 
+  email String
+  nome String
+  password String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("pesquisadores")
+  ocorrencia Ocorrencia[]
+}
+
+model Local{
+  id String @id @default(uuid())
+  nome String 
+  estado String
+  cidade String
+  referencia1 String
+  referencia2 String
+
+  @@map("locais")
+  ocorrencia Ocorrencia[]
+}
+
+// Trilhas 
+
+model Planta{
+  id String @id @default(uuid())
+  vernaculo1 String //Nome Comum
+  vernaculo2 String
+  vernaculo3 String
+  nome_Cientifico String
+  familia String
+  origem String 
+  habito String
+
+  @@map("plantas")
+  ocorrencia Ocorrencia[]
+}
+
+model Ocorrencia{
+  id String @id @default(uuid())
+  long Float
+  lat Float
+  gps Int 
+  status Boolean
+
+  pesquisador Pesquisador @relation(fields: [pesquisador_id], references: [id])
+  planta Planta @relation(fields: [planta_id], references: [id])
+  local Local @relation(fields: [local_id], references: [id])
+
+  @@map("ocorrencias")
+  pesquisador_id String
+  planta_id String
+  local_id String 
+
+}
