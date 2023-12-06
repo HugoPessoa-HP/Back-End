@@ -4,7 +4,7 @@ import { UserService } from '../../services/user/UserService';
 class UserController{
     async ex(req: Request, res: Response){
 
-        const userID = req.userID;
+        const userID = req.pesquisadorID;
         const userService = new UserService();
 
         const user = await userService.ex(userID);

@@ -1,7 +1,7 @@
 import { CreateLocalService } from "../../services/local/PostLocalService";
 import { Request, Response } from "express";
 
-class CreateLocalController {
+class PostLocalController {
     async ex(req: Request, res: Response){
         const { nome, estado, cidade, referencia1, referencia2 } = req.body;
 
@@ -16,4 +16,4 @@ class CreateLocalController {
     }
 }
 
-export { CreateLocalController };
+export { PostLocalController };

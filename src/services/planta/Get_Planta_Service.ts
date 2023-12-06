@@ -1,15 +1,16 @@
 import prismaClient from "../../prisma";
 
-class GetPlantaService{
-    async ex(){
+class GetPlantasService{
+    async execute(){
 
         const plantas = await prismaClient.planta.findMany({
             select: {
+                nome_Cientifico: true,
+                familia: true,
                 vernaculo1: true,
                 vernaculo2: true,
-                familia: true,
                 origem: true,
-                habito: true
+                habito: true,
             }
         })
         
@@ -17,4 +18,4 @@ class GetPlantaService{
     }
 }
 
-export { GetPlantaService }
+export { GetPlantasService }

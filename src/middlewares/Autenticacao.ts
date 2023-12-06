@@ -23,7 +23,7 @@ function autenticacao(req: Request, res: Response, next: NextFunction){
             process.env.JWT
         ) as Payload;
 
-        req.userID = sub;
+        req.pesquisadorID = sub;
 
         return next();
     }catch(erro){
@@ -31,6 +31,5 @@ function autenticacao(req: Request, res: Response, next: NextFunction){
     }
 
 }
-
 
 export { autenticacao }
