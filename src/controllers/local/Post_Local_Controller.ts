@@ -1,4 +1,4 @@
-import { CreateLocalService } from "../../services/local/PostLocalService";
+import { CreateLocalService } from "../../services/local/Post_Local_Service";
 import { Request, Response } from "express";
 
 class PostLocalController {

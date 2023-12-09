@@ -1,4 +1,4 @@
-import { CreateOcorrenciaService } from "../../services/ocorrencia/OcorrenciaService";
+import { CreateOcorrenciaService } from "../../services/Instancia_Trilha/OcorrenciaService";
 import { Request, Response } from "express";
 
 class CreateOcorrenciaController {

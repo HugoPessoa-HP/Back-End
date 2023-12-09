@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { DeleteLocalService} from '../../services/local/DeleteLocalService';
+import { DeleteLocalService} from '../../services/local/Delete_Local_Service';
 
 class DeleteLocalController {
     async ex(req: Request, res: Response){
