@@ -5,6 +5,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -48,6 +49,7 @@ model Planta{
   familia String
   origem String 
   habito String
+  banner String
 
   @@map("plantas")
   ocorrencia Ocorrencia[]

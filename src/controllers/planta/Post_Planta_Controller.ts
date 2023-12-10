@@ -6,16 +6,25 @@ class PostPlantaController {
         const { vernaculo1, vernaculo2, vernaculo3, nome_Cientifico, familia, origem, habito} = req.body;
 
         const createPlantaService = new PostPlantaService;
-        const planta = await createPlantaService.execute({
-            vernaculo1,
-            vernaculo2,
-            vernaculo3,
-            nome_Cientifico,
-            familia,
-            origem,
-            habito,
-        })
-        return res.json(planta);
+
+        if(!req.file){
+            throw new Error(" Erro de upload de arquivo ")
+        }else{
+            const { filename: banner } = req.file;  
+
+            const planta = await createPlantaService.execute({
+                vernaculo1,
+                vernaculo2,
+                vernaculo3,
+                nome_Cientifico,
+                familia,
+                origem,
+                habito,
+                banner,
+            })
+            return res.json(planta);
+        }
+
     }
 }
 

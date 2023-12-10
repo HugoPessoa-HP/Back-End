@@ -8,11 +8,12 @@ interface PlantaRequest{
     familia: string;
     origem: string;
     habito: string;
+    banner: string;
 }
 
 class PostPlantaService{
 
-    async execute({ vernaculo1, vernaculo2, vernaculo3, nome_Cientifico, familia, origem, habito}: PlantaRequest){
+    async execute({ vernaculo1, vernaculo2, vernaculo3, nome_Cientifico, familia, origem, habito, banner}: PlantaRequest){
         if(!vernaculo1 || !vernaculo2 || !vernaculo3){
             throw new Error("Dados Incorretos");
         }
@@ -37,6 +38,7 @@ class PostPlantaService{
             familia: familia,
             origem: origem,
             habito: habito,
+            banner: banner,
         },
         select:{
             nome_Cientifico: true,

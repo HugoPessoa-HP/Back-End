@@ -39,7 +39,7 @@ router
 
 // -- Rotas Plantas --
 router
-    .post('/planta', autenticacao, new PostPlantaController().ex)
+    .post('/planta', autenticacao, upload.single('file'), new PostPlantaController().ex)
     .get('/plantas', autenticacao, new GetPlantasController().ex)
     .put('/planta:id', autenticacao, new GetIdPlantaController().ex)
     .delete('/planta', autenticacao);
