@@ -13,6 +13,7 @@ class PostPesquisadorController{
             cpf,
             password,
         });
+        
         return res.json(pesquisador);
     }
 }
