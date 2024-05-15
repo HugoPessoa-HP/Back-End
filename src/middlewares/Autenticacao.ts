@@ -11,7 +11,6 @@ function autenticacao(req: Request, res: Response, next: NextFunction){
 
     if(!token){
         return res.status(401).end();
-
     }
 
     const [, tokenI] = token.split(" ");

@@ -2,7 +2,7 @@ import prismaClient from "../../prisma";
 
 class GetLocaisService{
     async execute(){ 
-        const locais = prismaClient.local.findMany({
+        const locais = await prismaClient.local.findMany({
             select:{
                 nome: true,
                 cidade: true,
@@ -14,6 +14,6 @@ class GetLocaisService{
         return locais;
     }
     
-} 
+}
 
 export { GetLocaisService }

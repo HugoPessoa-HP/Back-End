@@ -5,17 +5,15 @@ generator client {
   provider = "prisma-client-js"
 }
 
-
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-
 // Criar migration: npm prisma migrate dev
 model Pesquisador{
-  id String @id @default(uuid())
-  cpf String 
+  id Int @id @default(autoincrement()) 
+  cpf String
   email String
   nome String
   password String
@@ -23,52 +21,87 @@ model Pesquisador{
   updated_at DateTime? @default(now())
 
   @@map("pesquisadores")
-  ocorrencia Ocorrencia[]
+ // ocorrencia Ocorrencia[]
 }
 
-model Local{
-  id String @id @default(uuid())
-  nome String 
-  estado String
-  cidade String
+model Estado{
+  id Int @id @default(autoincrement())
+  nome_Estado String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("estados")
+  cidade Cidade[]
+}
+model Cidade{
+  id Int @id @default(autoincrement())
+  nome_Cidade String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  estado_id Int
+
+  @@map("cidades")
+  estado Estado @relation(fields: [estado_id], references: [id])
+  parque Parque[]
+}
+
+model Parque{
+  id Int @id @default(autoincrement())
+  nome_Parque String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  cidade_id Int
+
+  @@map("parques")
+  cidade Cidade @relation(fields: [cidade_id], references: [id])
+  trilha Trilha[]
+}
+model Trilha{
+  id Int @id @default(autoincrement())
+  nome_Trilha String
   referencia1 String
   referencia2 String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  parque_id Int
+  parque Parque @relation(fields: [parque_id], references: [id])
 
-  @@map("locais")
-  ocorrencia Ocorrencia[]
+  @@map("trilhas")
+  planta Planta[]
+ // ocorrencia Ocorrencia[]
 }
 
-// Trilhas 
-
+// Trilhas
 model Planta{
-  id String @id @default(uuid())
+  id Int @id @default(autoincrement())
   vernaculo1 String //Nome Comum
   vernaculo2 String
   vernaculo3 String
   nome_Cientifico String
   familia String
-  origem String 
+  origem String
   habito String
   banner String
+  trilha_id Int
+  trilha Trilha @relation(fields: [trilha_id], references: [id])
 
   @@map("plantas")
-  ocorrencia Ocorrencia[]
+  // ocorrencia Ocorrencia[]
 }
 
-model Ocorrencia{
-  id String @id @default(uuid())
-  long Float
-  lat Float
-  gps Int 
-  status Boolean
+//model Ocorrencia{
+//  id String @id @default(uuid())
+//  long Float
+//  lat Float
+//  gps Int
+//  status Boolean
+//  pesquisador_id String
+//  planta_id String
+//  trilha_id String
 
-  pesquisador Pesquisador @relation(fields: [pesquisador_id], references: [id])
-  planta Planta @relation(fields: [planta_id], references: [id])
-  local Local @relation(fields: [local_id], references: [id])
+//  pesquisador Pesquisador @relation(fields: [pesquisador_id], references: [id])
+//  planta Planta @relation(fields: [planta_id], references: [id])
+//  local Trilha @relation(fields: [trilha_id], references: [id])
 
-  @@map("ocorrencias")
-  pesquisador_id String
-  planta_id String
-  local_id String 
-
-}
+//  @@map("ocorrencias")
+//}

@@ -30,7 +30,7 @@ router.post('/login', new AutenticacaoPesquisadorController().ex);
 
 // -- Pesquisadores --
 router
-    .post('/pesquisador', autenticacao, new PostPesquisadorController().ex)
+    .post('/pesquisador', new PostPesquisadorController().ex)
     .get('/pesquisadores', autenticacao, new GetPesquisadoresController().ex)
     .get('/pesquisador:id', autenticacao, new GetIdPesquisadorController().ex)
     .delete('pesquisador', autenticacao, new DeletePesquisadorController().ex)
@@ -48,7 +48,7 @@ router
 router
     .get('/locais', new GetLocaisController().ex)
     .get('local:id', new GetLocalController().ex)
-    .post('/local', autenticacao)
+    .post('/local', autenticacao, new PostLocalController().ex)
     .put('/local')
     .delete('/local');
 

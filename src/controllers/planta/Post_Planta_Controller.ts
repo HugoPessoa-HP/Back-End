@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 
 class PostPlantaController {
     async ex(req: Request, res: Response){
-        const { vernaculo1, vernaculo2, vernaculo3, nome_Cientifico, familia, origem, habito} = req.body;
+        const { vernaculo1, vernaculo2, vernaculo3, nome_Cientifico, familia, origem, habito, trilha_id} = req.body;
 
         const createPlantaService = new PostPlantaService;
 
@@ -21,6 +21,7 @@ class PostPlantaController {
                 origem,
                 habito,
                 banner,
+                trilha_id,
             })
             return res.json(planta);
         }
@@ -28,4 +29,26 @@ class PostPlantaController {
     }
 }
 
-export { PostPlantaController };
+class PostPlantaAlunoController {
+    async ex(req: Request, res: Response){
+        const { banner, origem} = req.body;
+
+        const createPlantaService = new PostPlantaService;
+
+        if(!req.file){
+            throw new Error(" Erro de upload de arquivo ")
+        }else{
+            const { filename: banner } = req.file;  
+
+            const planta = await createPlantaService.executePre({
+                origem,
+                banner,
+            })
+            return res.json(planta);
+        }
+
+    }
+}
+
+
+export { PostPlantaController , PostPlantaAlunoController };
