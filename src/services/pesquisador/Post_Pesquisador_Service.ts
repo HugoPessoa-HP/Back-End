@@ -41,7 +41,7 @@ class PostPesquisadorService {
                 email: true,
             }
         });
-
+        console.log(pesquisador)
         return pesquisador;
     }
 }

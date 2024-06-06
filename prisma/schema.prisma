@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,98 +7,101 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Criar migration: npm prisma migrate dev
-model Pesquisador{
-  id Int @id @default(autoincrement()) 
-  cpf String
-  email String
-  nome String
-  password String
+model Pesquisador {
+  id         Int       @id @default(autoincrement())
+  cpf        String
+  email      String
+  nome       String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
+  password   String
 
   @@map("pesquisadores")
- // ocorrencia Ocorrencia[]
 }
 
-model Estado{
-  id Int @id @default(autoincrement())
+model Estado {
+  id          BigInt       @id @default(autoincrement())
   nome_Estado String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+  cidade      Cidade[]
 
   @@map("estados")
-  cidade Cidade[]
 }
-model Cidade{
-  id Int @id @default(autoincrement())
+
+model Cidade {
+  id          BigInt       @id @default(autoincrement())
   nome_Cidade String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
-  estado_id Int
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+  estado_id   BigInt
+  estado      Estado    @relation(fields: [estado_id], references: [id])
+  parque      Parque[]
 
+  @@index([estado_id], map: "cidades_estado_id_fkey")
   @@map("cidades")
-  estado Estado @relation(fields: [estado_id], references: [id])
-  parque Parque[]
 }
 
-model Parque{
-  id Int @id @default(autoincrement())
+model Parque {
+  id          BigInt       @id @default(autoincrement())
   nome_Parque String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
-  cidade_id Int
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+  cidade_id   BigInt
+  cidade      Cidade    @relation(fields: [cidade_id], references: [id])
+  trilha      Trilha[]
 
+  @@index([cidade_id], map: "parques_cidade_id_fkey")
   @@map("parques")
-  cidade Cidade @relation(fields: [cidade_id], references: [id])
-  trilha Trilha[]
 }
-model Trilha{
-  id Int @id @default(autoincrement())
+
+model Trilha {
+  id          BigInt       @id @default(autoincrement())
   nome_Trilha String
   referencia1 String
   referencia2 String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
-  parque_id Int
-  parque Parque @relation(fields: [parque_id], references: [id])
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+  parque_id   BigInt
+  parque      Parque    @relation(fields: [parque_id], references: [id])
 
   @@map("trilhas")
-  planta Planta[]
- // ocorrencia Ocorrencia[]
 }
 
-// Trilhas
-model Planta{
-  id Int @id @default(autoincrement())
-  vernaculo1 String //Nome Comum
-  vernaculo2 String
-  vernaculo3 String
+model Planta {
+  id              BigInt    @id @default(autoincrement())
+  vernaculo1      String
+  vernaculo2      String
+  vernaculo3      String
   nome_Cientifico String
-  familia String
-  origem String
-  habito String
-  banner String
-  trilha_id Int
-  trilha Trilha @relation(fields: [trilha_id], references: [id])
+  familia         String
+  origem          String
+  habito          String
+  banner          String
+  categoria       String
 
   @@map("plantas")
-  // ocorrencia Ocorrencia[]
 }
 
-//model Ocorrencia{
-//  id String @id @default(uuid())
-//  long Float
-//  lat Float
-//  gps Int
-//  status Boolean
-//  pesquisador_id String
-//  planta_id String
-//  trilha_id String
+model Class01 {
+  id      BigInt     @id @default(autoincrement())
+  class   String   
+  info    String
+}
+model Class02 {
+  id      BigInt     @id @default(autoincrement())
+  class   String
+  info    String
+}
 
-//  pesquisador Pesquisador @relation(fields: [pesquisador_id], references: [id])
-//  planta Planta @relation(fields: [planta_id], references: [id])
-//  local Trilha @relation(fields: [trilha_id], references: [id])
+model Class03 {
+  id      BigInt     @id @default(autoincrement())
+  class   String
+  info    String
+} 
 
-//  @@map("ocorrencias")
-//}
+model Class04 {
+  id      BigInt     @id @default(autoincrement())
+  class   String
+  info    String
+}

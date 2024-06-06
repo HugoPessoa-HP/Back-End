@@ -5,7 +5,7 @@ class PostPesquisadorController{
     async ex(req: Request, res: Response){
         
         const { nome, email, cpf, password} = req.body;
-
+        
         const createPesquisadorService = new PostPesquisadorService();
         const pesquisador = await createPesquisadorService.execute({
             nome,

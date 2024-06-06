@@ -9,16 +9,17 @@ import { DeletePesquisadorController } from './controllers/pesquisador/Delete_Pe
 
 import { GetIdPlantaController } from './controllers/planta/GetID_Planta_Controller';
 import { GetPlantasController } from './controllers/planta/Get_Planta_Controller';
-import { PostPlantaController } from './controllers/planta/Post_Planta_Controller';
+//import { PostPlantaController } from './controllers/planta/Post_Planta_Controller';
 import { DeletePlantaController } from './controllers/planta/Delete_Planta_Controller';
 
 import { GetLocalController } from './controllers/local/GetID_Local_Controller'; 
-import { GetLocaisController } from './controllers/local/Get_Local_Controller'; 
+import { GetEstadosController } from './controllers/local/Get_Local_Controller'; 
 import { PostLocalController } from './controllers/local/Post_Local_Controller';
 import { DeleteLocalController } from './controllers/local/Delete_Local_Controller'
 
 import uploadConfig from './config/multer' 
 import multer from 'multer'
+import { PostPlantaAlunoController } from './controllers/planta/Post_Planta_Controller';
 
 const router = Router();
 
@@ -31,24 +32,24 @@ router.post('/login', new AutenticacaoPesquisadorController().ex);
 // -- Pesquisadores --
 router
     .post('/pesquisador', new PostPesquisadorController().ex)
-    .get('/pesquisadores', autenticacao, new GetPesquisadoresController().ex)
-    .get('/pesquisador:id', autenticacao, new GetIdPesquisadorController().ex)
+    .get('/pesquisadores', new GetPesquisadoresController().ex)
+    .get('/pesquisador:id', new GetIdPesquisadorController().ex)
     .delete('pesquisador', autenticacao, new DeletePesquisadorController().ex)
     .put('pesquisador', autenticacao);
 
-
 // -- Rotas Plantas --
+//upload.single('file')
 router
-    .post('/planta', autenticacao, upload.single('file'), new PostPlantaController().ex)
-    .get('/plantas', autenticacao, new GetPlantasController().ex)
-    .put('/planta:id', autenticacao, new GetIdPlantaController().ex)
-    .delete('/planta', autenticacao);
+    .post('/planta', new PostPlantaAlunoController().ex)
+    .get('/plantas', new GetPlantasController().ex)
+    .put('/planta:id', new GetIdPlantaController().ex)
+    .delete('/planta');
 
 // -- Rotas Locais --
 router
-    .get('/locais', new GetLocaisController().ex)
+    .get('/estados', new GetEstadosController().ex)
     .get('local:id', new GetLocalController().ex)
-    .post('/local', autenticacao, new PostLocalController().ex)
+    .post('/local', new PostLocalController().ex)
     .put('/local')
     .delete('/local');
 
