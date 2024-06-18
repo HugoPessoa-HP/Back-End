@@ -7,101 +7,152 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pesquisador {
+model Researcher {
   id         Int       @id @default(autoincrement())
   cpf        String
   email      String
-  nome       String
+  name       String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   password   String
 
-  @@map("pesquisadores")
+  @@map("researchers")
 }
 
-model Estado {
-  id          BigInt       @id @default(autoincrement())
-  nome_Estado String
+//model State {
+//  id          Int       @id @default(autoincrement())
+//  name_State  String
+//  created_at  DateTime? @default(now())
+//  updated_at  DateTime? @default(now())
+//  city        City[]
+
+//  @@map("states")
+//}
+
+
+//model City {
+//  id          Int    @id @default(autoincrement())
+//  name_City   String
+//  created_at  DateTime? @default(now())
+//  updated_at  DateTime? @default(now())
+//  state_id    Int
+//  state       State     @relation(fields: [state_id], references: [id])
+//  park        Park[]
+
+//  @@index([state_id], map: "cities_states_id_fkey")
+//  @@map("cities")
+//}
+
+//model Park {
+//  id          Int       @id @default(autoincrement())
+//  name_Park   String
+//  created_at  DateTime? @default(now())
+//  updated_at  DateTime? @default(now())
+//  city_id     Int
+//  city        City    @relation(fields: [city_id], references: [id])
+//  trail       Trail[]
+
+//  @@index([city_id], map: "parks_cities_id_fkey")
+//  @@map("parks")
+//}
+
+model Local {
+  id          Int @id @default(autoincrement())
+  name_Local  String
+  state       String
+  city        String
+  trail       Trail[]
+
+  @@map("locations")
+}
+
+model Trail {
+  id          Int       @id @default(autoincrement())
+  name_Trail  String
+  reference1  String
+  reference2  String
   created_at  DateTime? @default(now())
   updated_at  DateTime? @default(now())
-  cidade      Cidade[]
+//  park_id     BigInt
+//  park        Park    @relation(fields: [park_id], references: [id])
+  local_id    Int
+  local       Local    @relation(fields: [local_id], references: [id])
+  gp_occurrences Group_of_Occurrences[]
 
-  @@map("estados")
+  @@map("trails")
 }
 
-model Cidade {
-  id          BigInt       @id @default(autoincrement())
-  nome_Cidade String
-  created_at  DateTime? @default(now())
-  updated_at  DateTime? @default(now())
-  estado_id   BigInt
-  estado      Estado    @relation(fields: [estado_id], references: [id])
-  parque      Parque[]
+model Plant {
+  id               Int    @id @default(autoincrement())
+  vernacular1      String
+  vernacular2      String
+  vernacular3      String
+  name_Scientific  String
+  gp_occurrences   Group_of_Occurrences[]
 
-  @@index([estado_id], map: "cidades_estado_id_fkey")
-  @@map("cidades")
+  @@map("plants")
 }
 
-model Parque {
-  id          BigInt       @id @default(autoincrement())
-  nome_Parque String
-  created_at  DateTime? @default(now())
-  updated_at  DateTime? @default(now())
-  cidade_id   BigInt
-  cidade      Cidade    @relation(fields: [cidade_id], references: [id])
-  trilha      Trilha[]
+model Group_of_Occurrences {
+  id Int @id
+  id_Plant Int
+  id_Trail Int
+  category String
+  family String
+  origin           String
+  habit            String
+  plant Plant @relation(fields: [id_Plant], references: [id])
+  trail Trail @relation(fields: [id_Trail], references: [id])
+  occurrences Occurrences[] 
 
-  @@index([cidade_id], map: "parques_cidade_id_fkey")
-  @@map("parques")
+  @@map("group_of_ocurrences")
 }
 
-model Trilha {
-  id          BigInt       @id @default(autoincrement())
-  nome_Trilha String
-  referencia1 String
-  referencia2 String
-  created_at  DateTime? @default(now())
-  updated_at  DateTime? @default(now())
-  parque_id   BigInt
-  parque      Parque    @relation(fields: [parque_id], references: [id])
-
-  @@map("trilhas")
-}
-
-model Planta {
-  id              BigInt    @id @default(autoincrement())
-  vernaculo1      String
-  vernaculo2      String
-  vernaculo3      String
-  nome_Cientifico String
-  familia         String
-  origem          String
-  habito          String
-  banner          String
-  categoria       String
-
-  @@map("plantas")
+model Occurrences {
+  id Int @id @default(autoincrement())
+  id_gp_occurrence Int
+  banner String
+  gp_occurrences Group_of_Occurrences @relation(fields: [id_gp_occurrence], references: [id])
+  
+  @@map("occurrences")
 }
 
 model Class01 {
-  id      BigInt     @id @default(autoincrement())
-  class   String   
-  info    String
+  id       Int     @id @default(autoincrement())
+  class    String
+  info     String
+  class_02   Class02[]
+
+  @@map("class01")
 }
 model Class02 {
-  id      BigInt     @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
+  id_class01 Int 
   class   String
   info    String
+  class_03  Class03[]
+  class_01  Class01 @relation(fields: [id_class01], references: [id])
+
+  @@map("class02")
 }
 
 model Class03 {
-  id      BigInt     @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
+  id_class02 Int 
   class   String
   info    String
+  class_04  Class04[]
+  class_02   Class02 @relation(fields: [id_class02], references: [id])
+
+  @@map("class03")
 } 
 
 model Class04 {
-  id      BigInt     @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
+  id_class03 Int
   class   String
   info    String
+  class_03 Class03 @relation(fields: [id_class03], references: [id])
+
+  @@map("class04")
 }
