@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { GetLocaisService } from "../../services/local/Get_Local_Service";
+import { GetEstadosService } from "../../services/local/Get_Local_Service";
 
-class GetLocaisController {
+class GetEstadosController {
     async ex(req: Request, res: Response){
-        
-        const getLocais = new GetLocaisService;
-        const locais = await getLocais.execute();
+        console.log("Olá");
+        const getEstados = new GetEstadosService;
+        const estados = await getEstados.execute();
 
-        return res.json(locais);
+        return res.json(estados);
     }
 }
 
-export { GetLocaisController }
+export { GetEstadosController }

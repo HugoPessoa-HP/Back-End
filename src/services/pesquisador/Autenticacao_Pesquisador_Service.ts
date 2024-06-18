@@ -15,28 +15,26 @@ class AutenticacaoPesquisadorService{
                 email: email
             }
         })
-
+        
         if(!pesquisador){
             throw new Error("Falha no Login");
         }
 
         const passwordV = await compare(password, pesquisador.password);
-
+        
         if(!passwordV){
             throw new Error("Falha no Login!!");
         }
-
+        const id = pesquisador.id.toString()
         // Token usuario
-        const token = sign(
-        {
+        const token = sign({
             nome: pesquisador.nome,
-            email: pesquisador.email,
             cpf: pesquisador.cpf,
+            email: pesquisador.email
         },
-        process.env.JWT,
+        process.env.JWT_SECRET,
         {
-            subject: pesquisador.id,
-            expiresIn: '6h',
+            subject: id
         }
         )
       

@@ -27,7 +27,7 @@ class AutenticacaoUserService{
         }
 
         // Token usuario
-        const token = sign(
+/*        const token = sign(
         {
             nome: pesquisador.nome,
         },
@@ -37,10 +37,10 @@ class AutenticacaoUserService{
             expiresIn: '6h',
         }
         )
-      
+*/      
         return {
             nome: pesquisador.nome,
-            token: token,
+            //token: token,
         }
     }
 }

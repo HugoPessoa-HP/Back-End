@@ -10,5 +10,4 @@ class GetPlantasController{
         return res.json(plantas);
     }
 }
-
 export { GetPlantasController }

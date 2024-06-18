@@ -13,6 +13,7 @@ class PostLocalController {
             referencia1,
             referencia2,
         })
+        console.log(local);
     }
 }
 
