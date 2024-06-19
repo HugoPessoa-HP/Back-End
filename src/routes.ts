@@ -7,10 +7,10 @@ import { GetPesquisadoresController } from './controllers/pesquisador/Get_Pesqui
 import { PostPesquisadorController } from './controllers/pesquisador/Post_Pesquisador_Controller';
 import { DeletePesquisadorController } from './controllers/pesquisador/Delete_Pesquisador_Controller';
 
-import { GetIdPlantaController } from './controllers/planta/GetID_Planta_Controller';
-import { GetPlantasController } from './controllers/planta/Get_Planta_Controller';
+import { GetIdPlantaController } from './controllers/planta/GetIDPlantaController';
+import { GetPlantasController } from './controllers/planta/GetPlantaController';
 //import { PostPlantaController } from './controllers/planta/Post_Planta_Controller';
-import { DeletePlantaController } from './controllers/planta/Delete_Planta_Controller';
+import { DeletePlantaController } from './controllers/planta/DeletePlantaController';
 
 import { GetLocalController } from './controllers/local/GetID_Local_Controller'; 
 import { GetEstadosController } from './controllers/local/Get_Local_Controller'; 
@@ -19,7 +19,7 @@ import { DeleteLocalController } from './controllers/local/Delete_Local_Controll
 
 import uploadConfig from './config/multer' 
 import multer from 'multer'
-import { PostPlantaAlunoController } from './controllers/planta/Post_Planta_Controller';
+import { PostPlantaAlunoController } from './controllers/planta/PostPlantaController';
 
 const router = Router();
 
