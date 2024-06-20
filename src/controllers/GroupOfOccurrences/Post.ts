@@ -15,7 +15,9 @@ class PostGpOccurrencesController {
             origin,
             habit
         })
-        console.log(gp);
+        //console.log(gp);
+
+        return res.json(gp)
     }
 }
 

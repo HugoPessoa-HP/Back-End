@@ -30,7 +30,7 @@ class PostPlantService{
             throw new Error("Error");
         }
         
-    const planta = await prismaClient.plant.create({
+    const plant = await prismaClient.plant.create({
         data:{
             vernacular1: vernacular1,
             vernacular2: vernacular2,
@@ -42,8 +42,8 @@ class PostPlantService{
         }
     });
 
-    console.log(planta);
-    return planta;
+    console.log(plant);
+    return plant;
 
     }
 /*

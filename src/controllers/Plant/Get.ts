@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { GetPlantsService } from '../../services/Plant/GetPlantsService';
+import { GetPlantsService } from '../../services/Plant/Get';
 
 class GetPlantsController{
     async ex(req: Request, res: Response){

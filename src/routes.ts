@@ -27,7 +27,12 @@ import { GetIdGpOccurrencesController } from './controllers/GroupOfOccurrences/G
 import { PostGpOccurrencesController } from './controllers/GroupOfOccurrences/Post';
 import { DeleteGpController } from './controllers/GroupOfOccurrences/Delete';
 
-import uploadConfig from './config/multer' 
+import { GetOccurrencesController } from './controllers/Occurrences/Get';
+import { GetIdOccurrencesController } from './controllers/Occurrences/GetID';
+import { PostOccurrencesController } from './controllers/Occurrences/Post';
+import { DeleteOccurrenceController } from './controllers/Occurrences/Delete';
+
+import uploadConfig from './config/multer'
 import multer from 'multer'
 
 const router = Router();
@@ -43,7 +48,7 @@ router
     .get('/researchers', new GetResearchersController().ex)
     .get('/researcher:id', new GetIdResearcherController().ex)
     .post('/researcher', new PostResearcherController().ex)
-    .delete('/researcher', authenticator, new DeleteResearcherController().ex)
+    .delete('/researcher:id', authenticator, new DeleteResearcherController().ex)
     .put('/researcher:id', authenticator);
 
 // -- Routes Locations --
@@ -52,7 +57,7 @@ router
     .get('local:id', new GetLocalController().ex)
     .post('/local', new PostLocalController().ex)
     .put('/local:id', authenticator)
-    .delete('/local', authenticator, new DeleteLocalController().ex);
+    .delete('/local:id', authenticator, new DeleteLocalController().ex);
 
 
 // -- Routes Trails
@@ -61,7 +66,7 @@ router
     .get('/trail:id', new GetIdtrailController().ex)
     .post('/trail', new PostTrailController().ex)
     .put('/trail:id', authenticator)
-    .delete('/trail', authenticator, new DeleteTrailController().ex)
+    .delete('/trail:id', authenticator, new DeleteTrailController().ex)
 
 // -- Routes Plants --
 //upload.single('file')
@@ -70,7 +75,7 @@ router
     .get('/plant:id', new GetIdPlantController().ex)
     .post('/plant', new PostPlantController().ex)
     .put('/plant:id', authenticator)
-    .delete('/plant', authenticator, new DeletePlantController().ex);
+    .delete('/plant:id', authenticator, new DeletePlantController().ex);
 
 
 // -- Routes Group of Occurrences --
@@ -78,10 +83,16 @@ router
     .get('/gpOccurrences', new GetGpOccurrencesController().ex)
     .get('/gpOccurrence:id', new GetIdGpOccurrencesController().ex)
     .post('/gpOccurrences', new PostGpOccurrencesController().ex)
-    .delete('/gpOccurrences', authenticator, new DeleteGpController().ex)
-    .put('/gpOccurrences:id', authenticator)
+    .delete('/gpOccurrences:id', authenticator, new DeleteGpController().ex)
+    .put('/gpOccurrences:id', authenticator);
+
 // -- Routes Occurrences -- 
-router.post('/occurrence');
+router
+    .get('/occurrence', new GetOccurrencesController().ex)
+    .get('/occurrence:id', new GetIdOccurrencesController().ex)
+    .post('/occurrence', new PostOccurrencesController().ex)
+    .delete('/occurrence:id', authenticator ,new DeleteOccurrenceController().ex)
+    .put('/occurrences:id', authenticator)
 
 /*router.get('/plantas', (req: Request, res: Response) => {
     //throw new Error('Erro na requisição');
