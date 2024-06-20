@@ -2,9 +2,15 @@ import prismaClient from "../../prisma";
 
 class GetGpOccurrencesService{
     async execute(){
-        const gpOccurrences = await prismaClient.estado.findMany({
+        const gpOccurrences = await prismaClient.group_of_Occurrences.findMany({
             select:{
-                nome_Estado: true,
+                id: true,
+                id_Plant: true,
+                id_Trail: true,
+                family: true,
+                origin: true,
+                habit: true,
+                category: true,
             }
         })
 

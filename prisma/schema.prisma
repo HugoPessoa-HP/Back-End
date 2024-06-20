@@ -73,6 +73,7 @@ model Trail {
   reference2  String
   created_at  DateTime? @default(now())
   updated_at  DateTime? @default(now())
+  description String
 //  park_id     BigInt
 //  park        Park    @relation(fields: [park_id], references: [id])
   local_id    Int
@@ -94,18 +95,18 @@ model Plant {
 }
 
 model Group_of_Occurrences {
-  id Int @id
+  id Int @id @default(autoincrement())
   id_Plant Int
   id_Trail Int
   category String
   family String
-  origin           String
-  habit            String
+  origin String
+  habit String
   plant Plant @relation(fields: [id_Plant], references: [id])
   trail Trail @relation(fields: [id_Trail], references: [id])
   occurrences Occurrences[] 
 
-  @@map("group_of_ocurrences")
+  @@map("group_of_occurrences")
 }
 
 model Occurrences {
